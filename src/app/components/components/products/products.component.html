@@ -1,0 +1,65 @@
+<div class="container" style="padding: 20px 0">
+
+</div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <ng-container *ngFor="let product of filteredProducts">
+      <div
+        class="col"
+        *ngIf="
+          product.categoryId == SelectedCategoryID || SelectedCategoryID == 0
+        "
+      >
+        <div
+          class="card h-100 shadow-sm"
+          [ngClass]="{ 'bg-warning': product.quantity === 1 }"
+          appProductCard="red"
+          defaultColor="yellow"
+
+
+        >
+          <img
+            src="assets/896.jpg"
+            class="card-img-top"
+            alt="{{ product.name }}"
+          />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text fw-bold text-success">
+              {{ product.price | currency : "EGP" : "symbol" }}
+            </p>
+            <p class="card-text" style="color: #2f3b7b">
+              {{ product.description }}
+            </p>
+            <p class="card-text fw-bold">Quantity: {{ product.quantity }}</p>
+            <div class="mt-auto">
+              <p
+                *ngIf="product.quantity === 0"
+                class="text-danger fw-bold mt-2 text-center"
+              >
+                Out of Stock
+              </p>
+              <div class="input-group">
+                <input
+                  [disabled]="product.quantity === 0"
+                  type="number"
+                  class="form-control"
+                  #inpValue
+                  min="1"
+                  [max]="product.quantity"
+                  placeholder="Quantity"
+                />
+                <button
+                  [disabled]="product.quantity === 0"
+                  class="btn btn-primary"
+                  (click)="Buy(product, +inpValue.value)"
+                >
+                  Buy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
