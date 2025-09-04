@@ -38,7 +38,7 @@
               >
                 Out of Stock
               </p>
-              <div class="input-group">
+              <!-- <div class="input-group">
                 <input
                   [disabled]="product.quantity === 0"
                   type="number"
@@ -55,7 +55,8 @@
                 >
                   Buy
                 </button>
-              </div>
+              </div> -->
+              <button class="btn btn-success" [routerLink]="['/productDetails' , product.id]">Show Details</button>
             </div>
           </div>
         </div>

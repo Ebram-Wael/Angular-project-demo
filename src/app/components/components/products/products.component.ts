@@ -4,11 +4,12 @@ import { IProduct } from '../../../models/iproduct';
 import { FormsModule } from '@angular/forms';
 import { ProductCardDirective } from '../../../directives/product-card.directive';
 import { ProductServicesService } from '../../../services/product-services.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductCardDirective],
+  imports: [CommonModule, FormsModule, ProductCardDirective, RouterLink],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
@@ -19,7 +20,7 @@ export class ProductsComponent {
   PurchaseDate!: Date;
   clicked: boolean = false
 
-  constructor(public productsService: ProductServicesService) {
+  constructor(public productsService: ProductServicesService,public router: Router) {
     this.filteredProducts = this.productsService.getAllProducts();
   }
 
@@ -38,6 +39,10 @@ export class ProductsComponent {
   
   ngOnInit() {
     this.filteredProducts = this.productsService.getAllProducts();
+  }
+  showDetails(prdID: number){
+    // this.router.navigateByUrl(`/productDetails/${prdID}`);
+    this.router.navigate(['/productDetails' , prdID])
   }
   
 }
